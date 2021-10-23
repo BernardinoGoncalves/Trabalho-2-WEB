@@ -1,212 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> 
-  <link href="../static/css/estilo.css" rel="stylesheet">
-  <title>Document</title>
+    <!-- Metatags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="2"> -->
+
+    <!-- Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet">
+
+    <!-- Tailwindcss -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="estilo.css" rel="stylesheet">
+    <title>Document</title>
 </head>
 
 <!-- Página que está sendo exibida -->
-<body class="bg-center bg-fixed bg-no-repeat bg-center bg-cover relative" style="background-image: url('../static/img/crossover.jpg');">
 
-  <!-- Container do tamanho full da página e contém todos os elementos -->
-  <div class="flex flex-col items-center justify-center w-full h-full bg-opacity-50 bg-black fixed">
+<body class="bg-center bg-no-repeat bg-center bg-cover bg-fixed h-screen relative"
+      style="background-image: url('../static/img/black-background.jpeg');">
 
-    <!-- Cabeçalho -->
-    <header class="flex items-center justify-center w-full space-x-2 mb-10 text-7xl pt-10 font-black">
-      <span class="titulo1">GIG</span>
-      <span class="titulo2">ANIME</span>
-    </header>
+<div class="flex">
+    <div class="flex-none w-42 h-screen">
+        <aside
+                class="flex flex-col items-center w-40 md:w-48 2xl:w-56 h-full py-2 px-5 bg-opacity-70 text-gray-800 bg-white top-0 left-0">
+            <!-- Titulo -->
+            <div class="flex items-center justify-center w-full border-b border-gray-800 py-2 font-bold">Favoritos</div>
+
+            <!-- Lista de Anime -->
+            <ul class="flex flex-col items-center justify-start h-full w-full space-y-7 pt-5 mb-5 px-5 overflow-y-scroll">
+
+                {% for f in favorito.values() %}
+                    <!-- Anime -->
+                    <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
+
+                        <!-- Imagem -->
+                        <a href="./anime?anime={{ f['id'] }}">
+                            <div
+                                    class="flex items-center justify-center w-20 h-20 md:w-24 md:h-24 2xl:w-28 2xl:h-28  rounded-full bg-cover shadow-md relative"
+                                    style="background-image: url('{{ f['image'] }}');">
+                                <div
+                                        class="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 2xl:w-12 2xl:h-12 rounded-full bg-yellow-500 -top-1 -right-1 shadow-xl absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-4 w-4 md:w-5 md:h-5 2xl:w-6 2xl:h-6 text-red-600"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Nome -->
+                        <div class="flex items-center justify-center w-25 text-md font-regular">
+                            <a href="./anime?anime={{ f['id'] }}" class="truncate">{{ f['title'] }}</a>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+    <div class="flex-grow h-screen">
+
+        <div class="grid grid-cols grid-rows-4 h-screen">
+            <div class="row-span-2">
+
+                <div class="container mx-auto h-full">
+                    <div class="flex items-center justify-center text-7xl md:text-8xl 2xl:text-9xl font-black pt-10">
+              <span class="flex items-center h-full"
+                    style="color: #024A9A; text-shadow: 2px 2px 5px #62EFF7;">GIG</span>
+                        <span class="flex items-center h-full"
+                              style="color: #DB5E24; text-shadow: 2px 2px 5px #FBDE83;">ANIME</span>
+                    </div>
+
+                    <div class="flex justify-center items-center w-full h-10 my-10">
+                        <form method="get">
+                            <input name="search" class="bg-white rounded w-96 h-10">
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row-span-2">
 
 
-    <!-- Container -->
-    <main class="flex items-center justify-center w-full h-full">
+                <div class="flex flex-wrap gap-4">
+                    <!-- Resultados da pesquisa -->
+                    <footer
+                            class="flex items-center justify-center w-full h-3/5 bg-opacity-70 p-8 text-gray-800 bg-black bottom-0">
 
-      <!-- Formulário -->
-      <form class="flex flex-col items-center justify-start w-6/12 h-full space-y-4 " method="get">
+                        <!-- Lista de Anime -->
 
-        <!-- Campos Input -->
-        <div class="flex flex-col items-center w-full space-y-5">
+                        <ul
+                                class="flex flex-wrap items-start grid-flow-col auto-cols-max gap-5 w-full h-full p-2 overflow-y-scroll">
+                            {% for anime in result %}
+                                <!-- Anime -->
+                                <li
+                                        class="flex flex-col items-center justify-center flex-shrink-0 flex-grow space-y-1 text-white font-regular">
 
-          <!-- Pesquisa Anime -->
-          <div class="flex flex-col items-start justify-center w-6/12 space-y-1">
-            <!-- <span class="text-white">Usuário:</span> -->
-            <input name="search" class="w-full h-10 bg-white opacity-75 rounded-md focus:outline-none text-sm px-4" placeholder="Digite o nome do anime">
-          </div>
+                                    <!-- Imagem -->
+                                    <div
+                                            class=" flex items-center justify-center w-32 h-48 bg-cover bg-center bg-no-repeat rounded-md shadow-lg relative p-2"
+                                            style="background-image: url({{ anime['image_url'] }});">
+                                        <div onclick="Fav('{{ anime['mal_id'] }}', '{{ anime['title'] }}', '{{ anime['image_url'] }}')"
+                                             class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
+                                            {% if favorito.__contains__(anime['mal_id']) %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600"
+                                                     viewBox="0 0 20 20"
+                                                     fill="currentColor">
+                                                    <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                </svg>
+                                            {% endif %}
+                                        </div>
+                                    </div>
 
+                                    <!-- Nome -->
+                                    <div class="flex items-center justify-center w-36">
+                                        <a href="./anime?anime={{ anime['mal_id'] }}"
+                                           class="truncate">{{ anime['title'] }}</a></div>
+
+
+                                </li>
+
+                            {% endfor %}
+                        </ul>
+                    </footer>
+                </div>
+
+
+            </div>
         </div>
 
-      </form>
+    </div>
+</div>
 
-    </main>
-
-    <!-- Barra de Favoritos -->
-    <section class="flex flex-col items-center justify-center w-64 h-full px-5 pt-2 bg-opacity-80 text-gray-800 bg-white absolute top-0 left-0">
-
-      <!-- Titulo -->
-      <div class="flex items-center justify-center w-full border-b border-gray-800 py-2 font-black">Favoritos</div>
-
-      <!-- Lista de Anime -->
-      <ul class="flex flex-col items-center justify-start h-full w-full space-y-5 pt-5 mb-5 px-5 overflow-y-scroll">
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-        <!-- Anime -->
-        <li class="w-full flex flex-col items-center justify-center space-y-1 font-regular">
-
-          <!-- Imagem -->
-          <div class=" flex items-center justify-center w-32 h-32 rounded-full bg-cover shadow-lg relative p-2"  style="background-image: url('../static/img/anime.png');">
-            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Nome -->
-          <div class="flex items-center justify-center w-full">Naruto</div>
-
-        </li>
-
-      </ul>
-
-    </section>
-
-    <!-- Resultados da pesquisa -->
-    <footer class="flex items-center justify-center h-3/5 min-w-full bg-opacity-80 p-10 text-gray-800 bg-black absolute bottom-0 left-64">
-      <!-- Lista de Anime -->
-      <ul class="grid grid-cols-8 h-full w-full overflow-y-scroll">
-
-        <!-- Anime -->
-          {% for anime in result %}
-            <li class="flex flex-col items-center justify-center space-y-1 text-white font-regular">
-
-              <!-- Imagem -->
-              <div class=" flex items-center justify-center w-32 h-48 bg-cover bg-center bg-no-repeat rounded-md shadow-lg relative p-2"  style="background-image: url({{ anime['image_url'] }});">
-                {% if fav.__contains__(anime['url']) %}
-                    <div class="flex items-center justify-center w-14 h-14 rounded-full bg-yellow-500 -top-2 -right-2 shadow-lg absolute">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </div>
-                {% endif %}
-              </div>
-
-              <!-- Nome -->
-              <div class="flex items-center justify-center w-full">{{ anime['title'] }}</div>
-
-            </li>
-        {% endfor %}
-      </ul>
-    </footer>
-
-  </div>
 </body>
-</html>
+<script>
+    function path(file) {
+        let old_path = window.location.pathname; // Pega o caminho completo da página atual
+        let new_path = old_path.replace(/(\/+\w+\.html)/, file); // Passa a string no regex e substitui pelo arquivo para redirecionar a outra página
+        return new_path;
+    }
 
+    function Fav(id, title, image) {
+
+        let link = 'http://127.0.0.1:5000/fav';
+        let metodo = 'post';
+        let json = {"id": id, "title": title, "image": image}
+        console.log("enviando...");
+
+        fetch(link, {
+                method: metodo,
+                body: JSON.stringify(json),
+                headers: {'Content-Type': 'application/json'}
+            }
+        ).catch(function (error) {
+            console.log('Deu ERRO:', error);
+        });
+    }
+
+</script>
+
+</html>
